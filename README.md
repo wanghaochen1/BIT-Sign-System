@@ -1,2 +1,232 @@
-# BIT-Sign-System
-计算机网络课程设计的代码，基线要求：实现内网签到功能，提升要求：构建用户画像+人脸识别
+# 致谢
+首先非常感谢学长和老师的指导和帮助
+我们项目使用了opencv和pytorch和一个并行的第三方库（都是依赖比较多，版本比较杂的库），只成功打包了部分功能。
+# 项目具体打包情况
+## 部分功能包括：
+    1.人脸识别的部分功能（更换了更加轻量的预训练模型，导致在定位人脸的能力降低）
+        1.1人脸录入功能
+        1.2人脸训练功能
+        1.3人脸识别签到
+    2.签到功能
+    3.签退功能
+    4.哈希加密功能
+## 打包失败的功能有：
+    1.教师端的刷新查看功能（使用了并行库）
+    2.多用户签到功能（消息队列有的电脑能够运行，有的电脑不行，原因尚未明确）
+    3.用户画像功能（历次签到时间通过socket传输过程中显示有违规字符，原因尚未明确）
+    4.打包也导致代码启动和运行速度明显降低，与项目多用户连接的实验数据可能存在出入
+
+## 运行说明
+    client端的主程序为 cilent.py
+    server端的主程序为 main.py
+    DATASource中有一个“haarcascade_frontalface_default.xml”的人脸定位，需要放置到client端的项目根目录中才能定位人脸
+    目前打包好的两个.exe文件均使用本机地址（127.0.0.1)端口号为12345，需要保证端口号不被占用（如果出现报错请关闭阿里云盘）
+
+# 以下是我们代码在本地运行所使用的环境：
+    Python 3.9.18
+    name: sign
+    channels:
+        - anaconda
+        - conda-forge
+        - defaults
+    dependencies:
+        - _tflow_select=2.3.0=mkl
+        - abseil-cpp=20211102.0=hd77b12b_0
+        - aiohttp=3.9.0=py39h2bbff1b_0
+        - aiosignal=1.2.0=pyhd3eb1b0_0
+        - aom=3.5.0=h63175ca_0
+        - astunparse=1.6.3=py_0
+        - async-timeout=4.0.3=py39haa95532_0
+        - attrs=23.1.0=py39haa95532_0
+        - blas=1.0=mkl
+        - blinker=1.6.2=py39haa95532_0
+        - brotli-python=1.0.9=py39hd77b12b_7
+        - bzip2=1.0.8=hcfcfb64_5
+        - c-ares=1.19.1=h2bbff1b_0
+        - ca-certificates=2023.12.12=haa95532_0
+        - cachetools=4.2.2=pyhd3eb1b0_0
+        - cairo=1.16.0=haedb8bc_5
+        - certifi=2023.11.17=py39haa95532_0
+        - cffi=1.16.0=py39h2bbff1b_0
+        - charset-normalizer=2.0.4=pyhd3eb1b0_0
+        - click=8.1.7=py39haa95532_0
+        - colorama=0.4.6=py39haa95532_0
+        - cryptography=41.0.3=py39h3438e0d_0
+        - dav1d=1.2.0=hcfcfb64_0
+        - eigen=3.4.0=h59b6b97_0
+        - expat=2.5.0=h63175ca_1
+        - ffmpeg=4.2.2=he774522_0
+        - font-ttf-dejavu-sans-mono=2.37=hab24e00_0
+        - font-ttf-inconsolata=3.000=h77eed37_0
+        - font-ttf-source-code-pro=2.038=h77eed37_0
+        - font-ttf-ubuntu=0.83=h77eed37_1
+        - fontconfig=2.14.2=hbde0cde_0
+        - fonts-conda-ecosystem=1=0
+        - fonts-conda-forge=1=0
+        - freeglut=3.2.2=h63175ca_2
+        - freetype=2.12.1=ha860e81_0
+        - frozenlist=1.4.0=py39h2bbff1b_0
+        - gast=0.4.0=pyhd3eb1b0_0
+        - gettext=0.21.1=h5728263_0
+        - giflib=5.2.1=h8cc25b3_3
+        - glib=2.78.3=h12be248_0
+        - glib-tools=2.78.3=h12be248_0
+        - google-auth=2.22.0=py39haa95532_0
+        - google-pasta=0.2.0=pyhd3eb1b0_0
+        - graphite2=1.3.13=1000
+        - grpc-cpp=1.48.2=hf108199_0
+        - grpcio=1.48.2=py39hf108199_0
+        - gst-plugins-base=1.18.5=h9e645db_0
+        - gstreamer=1.18.5=hd78058f_0
+        - harfbuzz=2.4.0=h149af0c_1
+        - hdf5=1.12.1=h51c971a_3
+        - icc_rt=2022.1.0=h6049295_2
+        - icu=58.2=ha925a31_3
+        - idna=3.4=py39haa95532_0
+        - importlib-metadata=7.0.0=py39haa95532_1
+        - intel-openmp=2023.1.0=h59b6b97_46320
+        - jasper=2.0.33=hc2e4405_1
+        - jpeg=9e=h2bbff1b_1
+        - keras-preprocessing=1.1.2=pyhd3eb1b0_0
+        - krb5=1.20.1=h5b6d351_1
+        - lerc=3.0=hd77b12b_0
+        - libblas=3.9.0=1_h8933c1f_netlib
+        - libcblas=3.9.0=5_hd5c7e75_netlib
+        - libclang13=14.0.6=default_h8e68704_1
+        - libcurl=8.5.0=h86230a5_0
+        - libdeflate=1.17=h2bbff1b_1
+        - libexpat=2.5.0=h63175ca_1
+        - libffi=3.4.4=hd77b12b_0
+        - libglib=2.78.3=h16e383f_0
+        - libiconv=1.17=hcfcfb64_2
+        - liblapack=3.9.0=5_hd5c7e75_netlib
+        - liblapacke=3.9.0=5_hd5c7e75_netlib
+        - libogg=1.3.5=h2bbff1b_1
+        - libopencv=4.6.0=haa95532_5
+        - libopus=1.3.1=h8ffe710_1
+        - libpng=1.6.39=h8cc25b3_0
+        - libpq=12.15=hb652d5d_1
+        - libprotobuf=3.20.3=h23ce68f_0
+        - libsqlite=3.44.2=hcfcfb64_0
+        - libssh2=1.10.0=hcd4344a_2
+        - libtiff=4.5.1=hd77b12b_0
+        - libvorbis=1.3.7=he774522_0
+        - libwebp=1.3.2=hbc33d0d_0
+        - libwebp-base=1.3.2=h2bbff1b_0
+        - libxml2=2.10.4=h0ad7f3c_1
+        - libxslt=1.1.37=h2bbff1b_1
+        - libzlib=1.2.13=hcfcfb64_5
+        - lz4-c=1.9.4=h2bbff1b_0
+        - m2w64-gcc-libgfortran=5.3.0=6
+        - m2w64-gcc-libs=5.3.0=7
+        - m2w64-gcc-libs-core=5.3.0=7
+        - m2w64-gmp=6.1.0=2
+        - m2w64-libwinpthread-git=5.0.0.4634.697f757=2
+        - markdown=3.4.1=py39haa95532_0
+        - markupsafe=2.1.3=py39h2bbff1b_0
+        - mkl=2023.1.0=h6b88ed4_46358
+        - mkl-service=2.4.0=py39h2bbff1b_1
+        - mkl_fft=1.3.8=py39h2bbff1b_0
+        - mkl_random=1.2.4=py39h59b6b97_0
+        - msys2-conda-epoch=20160418=1
+        - multidict=6.0.4=py39h2bbff1b_0
+        - numpy=1.26.3=py39h055cbcc_0
+        - numpy-base=1.26.3=py39h65a83cf_0
+        - oauthlib=3.2.2=py39haa95532_0
+        - opencv=4.6.0=py39ha36de5b_5
+        - openh264=2.3.1=h63175ca_2
+        - openjpeg=2.4.0=h4fc8c34_0
+        - openssl=1.1.1w=h2bbff1b_0
+        - opt_einsum=3.3.0=pyhd3eb1b0_1
+        - packaging=23.1=py39haa95532_0
+        - pcre=8.45=hd77b12b_0
+        - pcre2=10.42=h17e33f8_0
+        - pillow=10.0.1=py39h045eedc_0
+        - pip=23.3.1=py39haa95532_0
+        - pixman=0.42.2=h63175ca_0
+        - protobuf=3.20.3=py39hd77b12b_0
+        - py-opencv=4.6.0=haa95532_5
+        - pyasn1=0.4.8=pyhd3eb1b0_0
+        - pyasn1-modules=0.2.8=py_0
+        - pycparser=2.21=pyhd3eb1b0_0
+        - pyjwt=2.4.0=py39haa95532_0
+        - pyopenssl=23.2.0=py39haa95532_0
+        - pysocks=1.7.1=py39haa95532_0
+        - python=3.9.18=h6244533_0
+        - python_abi=3.9=2_cp39
+        - qt-main=5.15.2=h6072711_9
+        - qt-webengine=5.15.9=h5bd16bc_7
+        - qtwebkit=5.212=h2bbfb41_5
+        - re2=2022.04.01=hd77b12b_0
+        - requests=2.31.0=py39haa95532_0
+        - requests-oauthlib=1.3.0=py_0
+        - rsa=4.7.2=pyhd3eb1b0_1
+        - scipy=1.11.4=py39h309d312_0
+        - setuptools=68.2.2=py39haa95532_0
+        - snappy=1.1.10=h6c2663c_1
+        - sqlite=3.41.2=h2bbff1b_0
+        - svt-av1=1.4.1=h63175ca_0
+        - tbb=2021.8.0=h59b6b97_0
+        - tensorboard-plugin-wit=1.8.1=py39haa95532_0
+        - tk=8.6.12=h2bbff1b_0
+        - ucrt=10.0.22621.0=h57928b3_0
+        - urllib3=1.26.18=py39haa95532_0
+        - vc=14.2=h21ff451_1
+        - vc14_runtime=14.38.33130=h82b7239_18
+        - vs2015_runtime=14.38.33130=hcb4865c_18
+        - werkzeug=2.2.3=py39haa95532_0
+        - wheel=0.41.2=py39haa95532_0
+        - win_inet_pton=1.1.0=py39haa95532_0
+        - x264=1!164.3095=h8ffe710_2
+        - x265=3.5=h2d74725_3
+        - xlrd=2.0.1=pyhd3eb1b0_1
+        - xlutils=2.0.0=pyhd3eb1b0_0
+        - xlwt=1.3.0=py39haa95532_0
+        - xz=5.4.5=h8cc25b3_0
+        - yarl=1.9.3=py39h2bbff1b_0
+        - zipp=3.17.0=py39haa95532_0
+        - zlib=1.2.13=hcfcfb64_5
+        - zstd=1.5.5=hd43e919_0
+        - pip:
+            - absl-py==2.0.0
+            - clang==5.0
+            - contourpy==1.2.0
+            - cycler==0.12.1
+            - et-xmlfile==1.1.0
+            - filelock==3.13.1
+            - flatbuffers==23.5.26
+            - fonttools==4.47.0
+            - fsspec==2023.12.2
+            - google-auth-oauthlib==1.2.0
+            - h5py==3.1.0
+            - importlib-resources==6.1.1
+            - jinja2==3.1.2
+            - keras==2.15.0
+            - kiwisolver==1.4.5
+            - libclang==16.0.6
+            - matplotlib==3.8.2
+            - ml-dtypes==0.2.0
+            - mpmath==1.3.0
+            - networkx==3.2.1
+            - opencv-contrib-python==4.5.4.58
+            - opencv-python==4.5.4.58
+            - openpyxl==3.1.2
+            - pandas==2.1.4
+            - pyparsing==3.1.1
+            - python-dateutil==2.8.2
+            - pytz==2023.3.post1
+            - six==1.15.0
+            - sympy==1.12
+            - tensorboard==2.15.1
+            - tensorboard-data-server==0.7.2
+            - tensorflow==2.15.0
+            - tensorflow-estimator==2.15.0
+            - tensorflow-intel==2.15.0
+            - tensorflow-io-gcs-filesystem==0.31.0
+            - termcolor==1.1.0
+            - torch==1.10.0+cu102
+            - torchaudio==0.10.0+cu102
+            - torchvision==0.11.1+cu102
+            - typing-extensions==4.9.0
+            - tzdata==2023.4
+            - wrapt==1.12.1
